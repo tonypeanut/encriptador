@@ -2,22 +2,24 @@ body {
     background: #F3F5FC;
     font-family: 'Inter', sans-serif;
     font-family: 'Rubik', sans-serif;
-    height: 100%;
-}
+    height: 100%;}
 
+header h1{
+    font-size: 3em;
+    margin-top: 7vh;
+    margin-left: 23vw;
+}
 .logo {
     position: absolute;
     top: 40px;
     left: 40px;
-    width: 120px;
-}
+    width: 7vw;}
 
 .input-texto{
     width: 40%;
     height: 75vh;
-    margin-top: 168px;
-    margin-left: 15%;
-}
+    margin-top: 5vh;
+    margin-left: 15%;}
 
 .input-texto textarea{
     color: #0A3871;
@@ -29,19 +31,16 @@ body {
     border: none;
     background-color: transparent;
     margin-bottom: 8px;
-    resize: none;
-}
+    resize: none;}
 
 .input-texto p{
     color: #495057;
     font-size: 12px;
     margin-bottom: 8px;
-    width: 100%;
-}
+    width: 100%;}
 
 .botones {
-    width: 100%;
-}
+    width: 100%;}
 
 .botones input {
     width: 45%;
@@ -51,23 +50,20 @@ body {
     border-style: solid;
     border-width: 1px;
     font-size: 16px;
-    margin: 0 2% 0 2%;
-}
+    margin: 0 2% 0 2%;}
+
 .cifrar {
     margin-right: 3%;
     background-color: #0A3871;
-    color: #FFFFFF;
-}
+    color: #FFFFFF;}
 
 .descifrar {
     background-color: transparent;
-    color: #0A3871
-}
+    color: #0A3871}
 
 .resaltar:hover {
     transform: scale(1.05);
-    transition: 0.1s;
-}
+    transition: 0.1s;}
 
 .output-texto {
     background-color: #FFFFFF;
@@ -75,33 +71,28 @@ body {
     height: 90vh;
     min-height: 400px;
     position: absolute;
-    top: 40px;
+    top: 5vh;
     left: 60%;
     border-radius: 32px;
-    margin-bottom: calc(100% - 40px);
-    box-shadow: 6px 6px 22px -3px rgba(0,0,0,0.36);
-}
+    box-shadow: 6px 6px 22px -3px rgba(0,0,0,0.36);}
 
 .output-texto p{
     width: 90%;
-    height: calc(100% - 120px);
-    margin: 10% 0 0 5%;
+    height: 75vh;
+    margin: 3vh 0 0 5%;
     border-style: none;
     font-size: 24px;
-    color: #495057;
-}
+    color: #495057;}
 
 .output-texto div {
     width: 100%;
     position: absolute;
-    top:15%
-}
+    top:15%}
 
 .output-texto div img{
     width: 80%;
     margin-left: 8%;
-    margin-bottom: 3%;
-}
+    margin-bottom: 3%;}
 
 .output-texto div h2{
     color: #343A40;
@@ -110,8 +101,7 @@ body {
     text-align: center;
     font-size: 24px;
     font-weight: 700;
-    margin-bottom: 3%;
-}
+    margin-bottom: 3%;}
 
 .output-texto div p{
     color:#343A40;
@@ -119,8 +109,7 @@ body {
     margin-top: 10%;
     margin-left: 10%;
     font-size: 16px;
-    text-align: center;
-}
+    text-align: center;}
 
 .copiar {
     width: 88%;
@@ -133,12 +122,20 @@ body {
     border-width: 1px;
     color:#0A3871;
     font-size: 16px;
-}
+    display:none;}
 
 .output-texto div{
-    display: none;
-}
-    
+    display: block;}
+
+footer{
+    margin-top: 4vh;}
+
+footer p {
+    font:inherit;
+    text-align: center;
+    font-weight: 700;
+    color:#495057}
+
 @media screen and (max-width:810px){
     .input-texto{
         width: 90%;
@@ -184,6 +181,13 @@ body {
         display: none;
     }
 
+    .output-texto div h2{
+        margin-top: 15px;
+    }
+    .output-texto div p{
+        margin: 0 0 0 10%;
+    }
+
     @media screen and (max-width:400px){
         .logo{
             width: 10%;
@@ -191,8 +195,8 @@ body {
             left: 3%;
         }
 
-        .input-texto{ 
-            margin-top: 25%;
+        .input-texto textarea{
+            height: calc(100% - 220px)
         }
 
         .botones input{
@@ -202,7 +206,8 @@ body {
         }
 
         .output-texto {
-            min-height: 150px;
+            min-height: 175px;
+            max-height: none;
         }
     }
 }
