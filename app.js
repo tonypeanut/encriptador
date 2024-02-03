@@ -1,14 +1,21 @@
+//Constantes globales
 const a = "ai";
 const e = "enter";
 const i = "imes";
 const o = "ober";
 const u = "ufat"
+const input = document.querySelector("TEXTAREA");
+
+//Variables globales
 let codigo;
 let letra;
 
+//Eventos
 addEventListener("keypress", validarTeclas);
 addEventListener("paste", validarPaste);
 
+
+//Funciones
 function encriptar(){
     console.log(e.key);
     console.log(e);
@@ -28,8 +35,10 @@ function validarTeclas(e){
 
 function validarPaste(e){
     e.preventDefault();
+    //Obtenemos informacion del portapapeles
     let paste = (e.clipboardData || window.clipboardData).getData("text");
 
+    //Separamos el string en un arreglo para procesarlo
     pasteArray = paste.split("");
 
     pasteCharCodes = [];
@@ -60,5 +69,16 @@ function validarPaste(e){
     //Concatenamos el nuevo areglo y lo asignamos al pasteFiltrado
     let pasteFiltrado = nuevoArreglo.join("");
 
+    //Obtener posición actal del cursor
+    const posicion = input.selectionStart;
+    const textoActual = input.value;
+    const textoAntes =  textoActual.substring(0,posicion);
+    const textoDespues = textoActual.substring(posicion, textoActual.length);
+
+    //Se añade el pasteFiltrado en la posición actual del cursor
+    input.value = textoAntes + pasteFiltrado + textoDespues;
+
+    //Colocarse al final del texto insertado.
+    input.selectionStart = input.selectionEnd = posicion + pasteFiltrado.length;
 }
 
