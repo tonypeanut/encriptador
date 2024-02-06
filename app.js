@@ -3,8 +3,14 @@ const a = "ai";
 const e = "enter";
 const i = "imes";
 const o = "ober";
-const u = "ufat"
+const u = "ufat";
+
 const input = document.querySelector("TEXTAREA");
+const aviso = document.querySelector(".output-texto div");
+const output = document.querySelector(".output-texto p");
+const botonCopiar = document.querySelector(".copiar");
+const tituloOutput = document.querySelector(".output-texto h2")
+
 
 //Variables globales
 let codigo;
@@ -16,11 +22,69 @@ addEventListener("paste", validarPaste);
 
 
 //Funciones
+
+//Función ejecutada al presionar el boton "Encriptar"
 function encriptar(){
-    console.log(e.key);
-    console.log(e);
+    const mensajeInicial = input.value;
+    const mensajeInicialArray = mensajeInicial.split("");
+    let mensajeSalida = mensajeInicial;
+
+    iniciar();
+
+    // Se verificar carácter por carácter y se sustituyen por la clave que le corresponde.
+    for (let c = 0; c< mensajeInicial.length; c++) {
+        if (mensajeInicialArray[c]=='a') {
+            mensajeInicialArray[c] = a;
+        } else if (mensajeInicialArray[c]=='e'){
+            mensajeInicialArray[c] = e;
+        } else if (mensajeInicialArray[c]=='i'){
+            mensajeInicialArray[c] = i;
+        } else if (mensajeInicialArray[c]=='o'){
+            mensajeInicialArray[c] = o;
+        } else if (mensajeInicialArray[c]=='u'){
+            mensajeInicialArray[c] = u;
+        }
+    }
+    
+    //Unimos el array en un solo mensaje y lo mostramos en la salida.
+    mensajeSalida = mensajeInicialArray.join("");
+    output.textContent = mensajeSalida;
+
+    //Actualizamos el mensaje
+    tituloOutput.textContent = "Texto encriptado:"
 }
 
+// Función ejecutada al presionar el boton "Desencriptar"
+function desencriptar(){
+    const mensajeInicial = input.value;
+    const mensajeInicialArray = mensajeInicial.split("");
+    let mensajeSalida = mensajeInicial;
+    let c = 0;
+
+    iniciar();
+
+    while (c < mensajeSalida.length){
+        mensajeSalida = buscarClave(mensajeSalida, c, e, 'e');
+        mensajeSalida = buscarClave(mensajeSalida, c, i, 'i');
+        mensajeSalida = buscarClave(mensajeSalida, c, o, 'o');
+        mensajeSalida = buscarClave(mensajeSalida, c, u, 'u');
+        mensajeSalida = buscarClave(mensajeSalida, c, a, 'a');
+        c++;
+    }
+    output.textContent = mensajeSalida;
+
+    //Actualizamos el mensaje
+    tituloOutput.textContent = "Texto desencriptado:"
+}
+
+//Función ejecutada al presionar el botón "Copiar"
+function copiar(){
+    // Obtenemos el mensaje y lo copiamos al portapapeles
+    mensaje = output.textContent
+    navigator.clipboard.writeText(mensaje)
+}
+
+//Función para validar la pulsación de teclas por medio de un evento "key press"
 function validarTeclas(e){
     codigo = e.charCode;
     letra = e.key;
@@ -33,8 +97,10 @@ function validarTeclas(e){
     }
 }
 
+// Función para validar el texto pegado con el evento paste
 function validarPaste(e){
     e.preventDefault();
+
     //Obtenemos informacion del portapapeles
     let paste = (e.clipboardData || window.clipboardData).getData("text");
 
@@ -70,15 +136,38 @@ function validarPaste(e){
     let pasteFiltrado = nuevoArreglo.join("");
 
     //Obtener posición actal del cursor
-    const posicion = input.selectionStart;
+    const posicionInicial = input.selectionStart;
+    const posicionFinal = input.selectionEnd;
     const textoActual = input.value;
-    const textoAntes =  textoActual.substring(0,posicion);
-    const textoDespues = textoActual.substring(posicion, textoActual.length);
+    let textoAntes =  textoActual.substring(0, posicionInicial);
+    let textoDespues = textoActual.substring(posicionFinal, textoActual.length);
 
     //Se añade el pasteFiltrado en la posición actual del cursor
     input.value = textoAntes + pasteFiltrado + textoDespues;
 
     //Colocarse al final del texto insertado.
-    input.selectionStart = input.selectionEnd = posicion + pasteFiltrado.length;
+    input.selectionStart = input.selectionEnd = posicionInicial + pasteFiltrado.length;
 }
 
+
+function buscarClave(mensaje, inicio, clave, letra){
+    let antes, despues;
+    let extracto = mensaje.substring(inicio, inicio + clave.length);
+
+    if (mensaje.length >= (inicio + clave.length)) {
+        if (extracto == clave){
+            antes = mensaje.substring(0,inicio);
+            despues = mensaje.substring(inicio + clave.length, mensaje.length); 
+            return antes + letra + despues; 
+        } 
+    }
+    return mensaje;
+}
+
+function iniciar(){
+    // Ocultamos el aviso de "ningún mensaje encontrado"
+    aviso.style.visibility = "hidden";
+
+    // Mostramos el botón oculto de copiar
+    botonCopiar.style.display = "block";
+}
